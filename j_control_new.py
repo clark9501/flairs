@@ -4,13 +4,25 @@ import math
 import Frame_Mapping
 import gyro
 
-from mpu6050 import mpu6050
+import logging
+import sys
 import time
+
+from Adafruit_BNO055 import BNO055
 PWM.cleanup()
 
 
-#Sensor position
-sensor = mpu6050(0x68)
+#New Sensor activation
+bno = BNO055.BNO055(rst='P9_12')
+
+# Enable verbose debug logging if -v is passed as a parameter.
+if len(sys.argv) == 2 and sys.argv[1].lower() == '-v':
+    logging.basicConfig(level=logging.DEBUG)
+
+# Initialize the BNO055 and stop if something went wrong.
+if not bno.begin():
+    raise RuntimeError('Failed to initialize BNO055! Is the sensor connected?')
+
 
 
 
@@ -64,18 +76,9 @@ key = 1
 
 #   Target Angle in robot frame
 
-##calibration loop for velocity test:
 delta_t=0.025
-acc_data = sensor.get_accel_data()
-gyro_data = sensor.get_gyro_data()
-posin0 = {'x':0,'y':0,'z':0}
-pos_data = {}
-pos_data['x'] = 100*acc_data['x']
-pos_data['y'] = 100*acc_data['y']
-pos_data['z'] = gyro_data['z']
-posout = gyro.pos_int(pos_data,delta_t,posin0)
-#time.sleep(1)
-tstart = time.time()
+
+
 #PWM.stop("P8_13")
 #PWM.stop("P8_19")
 #PWM.stop("P9_42")
@@ -85,28 +88,15 @@ tstart = time.time()
 #PWM.start("P8_19",9,60,0)
 #PWM.start("P9_42",9,60,0)
 
-while key < 100:  # this is based on the controller options we have    
-    t1 = time.time()
-    key = key + 0.025
-    print("Rotation:" + str(round(posout['z'],5)))
-    gyro_data = sensor.get_gyro_data()
-    acc_data = sensor.get_accel_data()
-    pos_data['x'] = 100*acc_data['x']
-    pos_data['y'] = 100*acc_data['y']
-    pos_data['z'] = gyro_data['z']
-    #time.sleep(delta_t)
-    t2 = time.time()
-    posout = gyro.pos_int(pos_data,(t2-t1),posout)
-    #posout['x'] = posout['x']# - calxfin
-    #posout['y'] = posout['y']# - calyfin
-    #avxv.append(posout['x'])
-    #avyv.append(posout['y'])
-    #print(t2-t1)
-    #print(posout)
+while key<100:  # this is based on the controller options we have    
+    #key = key + 0.025
+    heading, roll, pitch = bno.read_euler()
+    print("Rotation:" + str(round(heading,5)))
+
     #alpha = 0
     #m = 1.5
     #rot = 0
-    #beta = posout['z']*math.pi/180
+    #beta = heading*math.pi/180
     #beta = math.pi/2
     #alpha,m,rot = read_joystick()
  
@@ -126,15 +116,9 @@ while key < 100:  # this is based on the controller options we have
     #PWM2 = force_mapping(float(f2))
     #PWM3 = force_mapping(float(f3))
 
-
-
     #flairs.pwm_set(PWM1,PWM2,PWM3)
     #print(PWM1,PWM2,PWM3)
 
-tend = time.time()    
-average_velocity = [sum(avxv)/len(avxv),sum(avyv)/len(avyv)]
-print("X velocity:" + str(average_velocity[0]) + "  Y velocity:" + str(average_velocity[1]))
-print("time elapsed:" + str(tend-tstart))
 PWM.stop("P8_13")
 PWM.stop("P8_19")
 PWM.stop("P9_42")
