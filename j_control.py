@@ -2,14 +2,14 @@ import Adafruit_BBIO.PWM as PWM
 import motorcontroller 
 import math
 import Frame_Mapping
-#import gyro
+import gyro
 
 from mpu6050 import mpu6050
 import time
 
 
-# Sensor position
-#sensor = mpu6050(0x68)
+#Sensor position
+sensor = mpu6050(0x68)
 
 
 
@@ -23,7 +23,7 @@ rot_coeff = 1 # Define the coefficient that scales the magnitude of the rotaiton
 
 #Initialize the System
 
-# flairs = motorcontroller.Motor()
+flairs = motorcontroller.Motor()
 
 
 #   def read_joystick()
@@ -63,17 +63,19 @@ key = 1
 
 #   Target Angle in robot frame
 
-#acc_data = sensor.get_accel_data()
-#gyro_data = sensor.get_gyro_data()
-#pos_data = {}
-#pos_data['x'] = acc_data['x']
-#pos_data['y'] = acc_data['y']
-#pos_data['z'] = gyro_data['z']
-#delta_t=0.02
-#posin0 = {'x':0, 'y':0, 'z':0}
-#posout = gyro.pos_int(pos_data,delta_t,posin0)
+acc_data = sensor.get_accel_data()
+gyro_data = sensor.get_gyro_data()
+pos_data = {}
+pos_data['x'] = acc_data['x']
+pos_data['y'] = acc_data['y']
+pos_data['z'] = gyro_data['z']
+delta_t=0.02
+posin0 = {'x':0, 'y':0, 'z':0}
+posout = gyro.pos_int(pos_data,delta_t,posin0)
         
-
+PWM.start("P8_13",9,15)
+PWM.start("P9_14",9,15)
+PWM.start("P9_16",9,15)
 
 
 while key != 0:  # this is based on the controller options we have
@@ -83,17 +85,17 @@ while key != 0:  # this is based on the controller options we have
     
     key = key + 0.1
 
-   # gyro_data = sensor.get_gyro_data()
-    #acc_data = sensor.get_accel_data()
-    #pos_data['x'] = acc_data['x']
-    #pos_data['y'] = acc_data['y']
-    #pos_data['z'] = gyro_data['z']
-    #posout = gyro.pos_int(pos_data,delta_t,posout)
+    gyro_data = sensor.get_gyro_data()
+    acc_data = sensor.get_accel_data()
+    pos_data['x'] = acc_data['x']
+    pos_data['y'] = acc_data['y']
+    pos_data['z'] = gyro_data['z']
+    posout = gyro.pos_int(pos_data,delta_t,posout)
     #print(posout)
     alpha = 0
     m = 1.5
     rot = 0
-    #beta = posout['z']*math.pi/180
+    beta = posout['z']*math.pi/180
 
     #alpha,m,rot = read_joystick()
 
@@ -113,6 +115,8 @@ while key != 0:  # this is based on the controller options we have
     PWM1 = force_mapping(f1)
     PWM2 = force_mapping(f2)
     PWM3 = force_mapping(f3)
+
+
 
     flairs.pwm_set(PWM1,PWM2,PWM3)
     print(PWM1,PWM2,PWM3)

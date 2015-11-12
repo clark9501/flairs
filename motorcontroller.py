@@ -82,7 +82,7 @@ class Motor:
         PWM.set_duty_cycle(Motor.motor2,9.7)
         PWM.set_duty_cycle(Motor.motor3,8.3)
 
-    def pwm_set(pwm1,pwm2,pwm3):
+    def pwm_set(self,pwm1,pwm2,pwm3):
         print ('rotate cw')
         PWM.set_duty_cycle(Motor.motor1,pwm1)
         PWM.set_duty_cycle(Motor.motor2,pwm2)
@@ -91,16 +91,16 @@ class Motor:
 
 ##    
 ##   
-##flairs = Motor()
+flairs = Motor()
 ##
 ##
 ### The motor controller test
 ##key = '0'
 ##
 ##
-##PWM.start("P8_13",9,15)
-##PWM.start("P9_14",9,15)
-##PWM.start("P9_16",9,15)
+PWM.start("P8_13",50,1000,0)
+PWM.start("P9_14",50,1000,0)
+PWM.start("P9_16",50,1000,0)
 ##
 ##
 ##while key!='q':
