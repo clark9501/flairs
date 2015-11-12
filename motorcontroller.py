@@ -8,7 +8,7 @@ R = 0.08 # Length of the Moment Arm, in m
 class Motor:
     # Use P8_13, P9_14, and P9_16 to send the PWM signals
     motor1 = "P8_13"
-    motor2 = "P8_19"
+    motor2 = "P9_14"
     motor3 = "P9_42"
 
     # Please Change the following settings based on ESC setup. (For current version, 9 for stop, 12 for full forward throttle, 6 for full backward throttle)
@@ -18,7 +18,7 @@ class Motor:
 
     def _init_(self):
         #Initialize the PWM generators
-        print ('Initialized')
+        #print ('Initialized')
         #(Motor, Duty Frequency, Polarity)
         #Check the ESC setup for frequency
         PWM.start(Motor.motor1,Motor.duty_stop,60)
@@ -26,7 +26,7 @@ class Motor:
         PWM.start(Motor.motor3,Motor.duty_stop,60)
 
     def shutdown(self):
-        print ('System Shutdown')
+        #print ('System Shutdown')
         #Kill both motor and signals
         PWM.stop(Motor.motor1)
         PWM.stop(Motor.motor2)
@@ -35,7 +35,7 @@ class Motor:
 
     def stop(self):
         #Set all motors to neutral
-        print ('Motor Stop')
+        #print ('Motor Stop')
         PWM.set_duty_cycle(Motor.motor1,Motor.duty_stop)
         PWM.set_duty_cycle(Motor.motor2,Motor.duty_stop)
         PWM.set_duty_cycle(Motor.motor3,Motor.duty_stop)
@@ -47,43 +47,43 @@ class Motor:
     # Solely used for test purpose.
 
     def right(self):
-        print ('go right')
+        #print ('go right')
         PWM.set_duty_cycle(Motor.motor1,8.4)
         PWM.set_duty_cycle(Motor.motor2,9.6)
         PWM.set_duty_cycle(Motor.motor3,9.8)
 
     def forward(self):
-        print ('go forward')
+        #print ('go forward')
         PWM.set_duty_cycle(Motor.motor1,9.7)
         PWM.set_duty_cycle(Motor.motor2,9.7)
-        PWM.set_duty_cycle(Motor.motor3,0)
+        PWM.set_duty_cycle(Motor.motor3,9)
 
     def backward(self):
-        print ('go backward')
+        #print ('go backward')
         PWM.set_duty_cycle(Motor.motor1,8.3)
         PWM.set_duty_cycle(Motor.motor2,8.3)
-        PWM.set_duty_cycle(Motor.motor3,0)
+        PWM.set_duty_cycle(Motor.motor3,9)
 
     def left(self):
-        print ('go left')
+        #print ('go left')
         PWM.set_duty_cycle(Motor.motor1,9.6)
         PWM.set_duty_cycle(Motor.motor2,8.4)
         PWM.set_duty_cycle(Motor.motor3,8.2)
 
     def rotate_ccw(self):
-        print ('rotate ccw')
+        #print ('rotate ccw')
         PWM.set_duty_cycle(Motor.motor1,9.7)
         PWM.set_duty_cycle(Motor.motor2,8.3)
         PWM.set_duty_cycle(Motor.motor3,9.7)
 
     def rotate_cw(self):
-        print ('rotate cw')
+        #print ('rotate cw')
         PWM.set_duty_cycle(Motor.motor1,8.3)
         PWM.set_duty_cycle(Motor.motor2,9.7)
         PWM.set_duty_cycle(Motor.motor3,8.3)
 
     def pwm_set(self,pwm1,pwm2,pwm3):
-        print ('rotate cw')
+        #print ('rotate cw')
         PWM.set_duty_cycle(Motor.motor1,pwm1)
         PWM.set_duty_cycle(Motor.motor2,pwm2)
         PWM.set_duty_cycle(Motor.motor3,pwm3)
@@ -98,9 +98,9 @@ flairs = Motor()
 ##key = '0'
 ##
 ##
-#PWM.start("P8_13",9,60,0)
-#PWM.start("P8_19",9,60,0)
-#PWM.start("P9_42",9,60,0)
+#PWM.start(motor1,9,60,0)
+#PWM.start(motor2,9,60,0)
+#PWM.start(motor3,9,60,0)
 ##
 ##
 ##while key!='q':

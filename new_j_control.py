@@ -2,7 +2,7 @@ import Adafruit_BBIO.PWM as PWM
 import motorcontroller 
 import math
 import Frame_Mapping
-
+from Tkinter import Tk
 
 import logging
 import sys
@@ -48,7 +48,9 @@ def read_joystick():
     m = 1.5
     rot = 0
 
-
+def addToClipBoard(text):
+    command = 'echo' + text.strip() + '| clip'
+    os.system(command)
 
 
 #   def read_IMU()
@@ -88,11 +90,47 @@ delta_t=0.025
 #PWM.start("P8_19",9,60,0)
 #PWM.start("P9_42",9,60,0)
 
-while key<100:  # this is based on the controller options we have    
-    #key = key + 0.025
-    heading, roll, pitch = bno.read_euler()
-    print("Rotation:" + str(heading))
-    time.sleep(.05)
+##attempt at velocity:
+#accel = 0
+#while accel <3:
+#    sys,gyro,accel,mag = bno.get_calibration_status()
+#    print(accel)
+vel = [0,0,0]
+prevaccel = [0,0,0]
+totv = []
+tstart = time.time()
+while time.time()-tstart<5:
+    cal= bno.get_calibration_status()
+    print(cal)
+print("3")
+time.sleep(.5)
+print("2")
+time.sleep(.5)
+print("1")
+time.sleep(.5)
+
+prevt = time.time()
+tstart = prevt
+key = 0
+while time.time()-tstart<10:  # this is based on the controller options we have    
+    #heading, roll, pitch = bno.read_euler()
+    #print("Rotation:" + str(heading))
+    #time.sleep(.05)
+    
+    curraccel = bno.read_linear_acceleration()
+    currt = time.time()
+    for x in range(0,2):
+#        if abs(curraccel[x]) > 0.03:
+        vel[x] = round(vel[x]+((round(curraccel[x],2) + round(prevaccel[x],2))/2)*(currt - prevt)*100,1)
+   # print(curraccel)
+    prevaccel = curraccel
+
+    totv.append(vel[0])
+    key = key + 1
+    #time.sleep(.1)
+    prevt = currt
+    
+    #print(vel)
     #alpha = 0
     #m = 1.5
     #rot = 0
@@ -118,6 +156,16 @@ while key<100:  # this is based on the controller options we have
 
     #flairs.pwm_set(PWM1,PWM2,PWM3)
     #print(PWM1,PWM2,PWM3)
+print(time.time()-tstart)
+print(totv)
+avvel = sum(totv)/len(totv)
+#root = Tk()
+#root.withdraw()
+#root.clipboard_clear()
+#root.clipboard_append(str(totv))
+#root.update()
+#root.destroy()
+print(avvel)
 
 PWM.stop("P8_13")
 PWM.stop("P8_19")
