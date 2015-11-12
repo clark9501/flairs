@@ -12,7 +12,7 @@ r = 0.08 #m
 
 def force_decomp(fx,fy,tau,alpha):
 
-    print(alpha)
+#    print(alpha)
     m11 = math.cos(2*pi/3+alpha)
     
     m12 = math.cos(pi/3+alpha)
@@ -27,13 +27,13 @@ def force_decomp(fx,fy,tau,alpha):
     
     matrix1 = np.matrix([[m11,m12,m13],[m21,m22,m23],[r,-r,r]])
    
-    print(matrix1)  
+#    print(matrix1)  
     mat1inv = matrix1.I
 
     matrix2 = np.matrix([[fx],[fy],[tau]])
 
     decomp = matrix1*matrix2
-    print(matrix2)
+#    print(matrix2)
     return decomp
 
 #test case

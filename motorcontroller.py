@@ -9,7 +9,7 @@ class Motor:
     # Use P8_13, P9_14, and P9_16 to send the PWM signals
     motor1 = "P8_13"
     motor2 = "P9_14"
-    motor3 = "P9_16"
+    motor3 = "P9_42"
 
     # Please Change the following settings based on ESC setup. (For current version, 9 for stop, 12 for full forward throttle, 6 for full backward throttle)
     duty_stop = 9
@@ -21,9 +21,9 @@ class Motor:
         print ('Initialized')
         #(Motor, Duty Frequency, Polarity)
         #Check the ESC setup for frequency
-        PWM.start(Motor.motor1,Motor.duty_stop,15)
-        PWM.start(Motor.motor2,Motor.duty_stop,15)
-        PWM.start(Motor.motor3,Motor.duty_stop,15)
+        PWM.start(Motor.motor1,Motor.duty_stop,60)
+        PWM.start(Motor.motor2,Motor.duty_stop,60)
+        PWM.start(Motor.motor3,Motor.duty_stop,60)
 
     def shutdown(self):
         print ('System Shutdown')
@@ -98,9 +98,9 @@ flairs = Motor()
 ##key = '0'
 ##
 ##
-PWM.start("P8_13",50,1000,0)
-PWM.start("P9_14",50,1000,0)
-PWM.start("P9_16",50,1000,0)
+#PWM.start("P8_13",9,60,0)
+#PWM.start("P8_19",9,60,0)
+#PWM.start("P9_42",9,60,0)
 ##
 ##
 ##while key!='q':

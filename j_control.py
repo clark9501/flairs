@@ -2,14 +2,15 @@ import Adafruit_BBIO.PWM as PWM
 import motorcontroller 
 import math
 import Frame_Mapping
-import gyro
+#import gyro
 
 from mpu6050 import mpu6050
 import time
+PWM.cleanup()
 
 
 #Sensor position
-sensor = mpu6050(0x68)
+#sensor = mpu6050(0x68)
 
 
 
@@ -48,10 +49,10 @@ def read_joystick():
 # Further test is needed to improve this function
 
 def force_mapping(force):
-    if force > 2 and force<10:
-        PWM = 9.25+(force-10)/1.6
-    elif force < -2 and force > -10:
-        PWM = 8.75 - (force+10)/1.6
+    if force > 0.5 and force<10:
+        PWM = 9.25+(force)/5
+    elif force < -0.5 and force > -10:
+        PWM = 8.75 + (force)/5
     else:
         PWM = 9
 
@@ -63,43 +64,47 @@ key = 1
 
 #   Target Angle in robot frame
 
-acc_data = sensor.get_accel_data()
-gyro_data = sensor.get_gyro_data()
-pos_data = {}
-pos_data['x'] = acc_data['x']
-pos_data['y'] = acc_data['y']
-pos_data['z'] = gyro_data['z']
+#acc_data = sensor.get_accel_data()
+#gyro_data = sensor.get_gyro_data()
+#pos_data = {}
+#pos_data['x'] = acc_data['x']
+#pos_data['y'] = acc_data['y']
+#pos_data['z'] = gyro_data['z']
 delta_t=0.02
-posin0 = {'x':0, 'y':0, 'z':0}
-posout = gyro.pos_int(pos_data,delta_t,posin0)
+#posin0 = {'x':0, 'y':0, 'z':0}
+#posout = gyro.pos_int(pos_data,delta_t,posin0)
+
+#PWM.stop("P8_13")
+#PWM.stop("P8_19")
+#PWM.stop("P9_42")
+
         
-PWM.start("P8_13",9,15)
-PWM.start("P9_14",9,15)
-PWM.start("P9_16",9,15)
+PWM.start("P8_13",9,60,0)
+PWM.start("P9_14",9,60,0)
+PWM.start("P9_42",9,60,0)
 
 
-while key != 0:  # this is based on the controller options we have
+while key < 40:  # this is based on the controller options we have
 
-    if key == 1000:
-        key = 0
+#    if key == 10:
+ #       key = 0
     
     key = key + 0.1
 
-    gyro_data = sensor.get_gyro_data()
-    acc_data = sensor.get_accel_data()
-    pos_data['x'] = acc_data['x']
-    pos_data['y'] = acc_data['y']
-    pos_data['z'] = gyro_data['z']
-    posout = gyro.pos_int(pos_data,delta_t,posout)
+   # gyro_data = sensor.get_gyro_data()
+   # acc_data = sensor.get_accel_data()
+   # pos_data['x'] = acc_data['x']
+   # pos_data['y'] = acc_data['y']
+   # pos_data['z'] = gyro_data['z']
+   # posout = gyro.pos_int(pos_data,delta_t,posout)
     #print(posout)
     alpha = 0
     m = 1.5
     rot = 0
-    beta = posout['z']*math.pi/180
-
+    #beta = posout['z']*math.pi/180
+    beta = math.pi/2
     #alpha,m,rot = read_joystick()
-
-    beta = math.pi/2	    
+ 
     gamma = alpha - beta
 
     fx = math.cos(gamma)*m
@@ -112,9 +117,9 @@ while key != 0:  # this is based on the controller options we have
     f2 = decomp[1]
     f3 = decomp[2]
 
-    PWM1 = force_mapping(f1)
-    PWM2 = force_mapping(f2)
-    PWM3 = force_mapping(f3)
+    PWM1 = force_mapping(float(f1))
+    PWM2 = force_mapping(float(f2))
+    PWM3 = force_mapping(float(f3))
 
 
 
@@ -123,8 +128,10 @@ while key != 0:  # this is based on the controller options we have
     time.sleep(delta_t)
 
     
+PWM.stop("P8_13")
+PWM.stop("P9_14")
+PWM.stop("P9_42")
 PWM.cleanup()
-    
 
 
 
