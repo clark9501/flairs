@@ -46,69 +46,81 @@ class Motor:
     
     # Solely used for test purpose.
 
-    def right():
+    def right(self):
         print ('go right')
         PWM.set_duty_cycle(Motor.motor1,8.4)
         PWM.set_duty_cycle(Motor.motor2,9.6)
         PWM.set_duty_cycle(Motor.motor3,9.8)
 
-    def forward():
+    def forward(self):
         print ('go forward')
         PWM.set_duty_cycle(Motor.motor1,9.7)
         PWM.set_duty_cycle(Motor.motor2,9.7)
         PWM.set_duty_cycle(Motor.motor3,0)
 
-    def backward():
+    def backward(self):
         print ('go backward')
         PWM.set_duty_cycle(Motor.motor1,8.3)
         PWM.set_duty_cycle(Motor.motor2,8.3)
         PWM.set_duty_cycle(Motor.motor3,0)
 
-    def left():
+    def left(self):
         print ('go left')
         PWM.set_duty_cycle(Motor.motor1,9.6)
         PWM.set_duty_cycle(Motor.motor2,8.4)
         PWM.set_duty_cycle(Motor.motor3,8.2)
 
-    def rotate_ccw():
+    def rotate_ccw(self):
         print ('rotate ccw')
         PWM.set_duty_cycle(Motor.motor1,9.7)
         PWM.set_duty_cycle(Motor.motor2,8.3)
         PWM.set_duty_cycle(Motor.motor3,9.7)
 
-    def rotate_cw():
+    def rotate_cw(self):
         print ('rotate cw')
         PWM.set_duty_cycle(Motor.motor1,8.3)
         PWM.set_duty_cycle(Motor.motor2,9.7)
         PWM.set_duty_cycle(Motor.motor3,8.3)
-
-
-
+   
 flairs = Motor()
+
 
 # The motor controller test
 key = '0'
+
+
+PWM.start("P8_13",9,15)
+PWM.start("P9_14",9,15)
+PWM.start("P9_16",9,15)
+
+
 while key!='q':
     print('waiting for next instruction')
     key = raw_input(">")
     if key == 'w':
         flairs.forward()
         time.sleep(5)
+	print("sleep end")
     elif key == 's':
         flairs.backward()
         time.sleep(5)
+	print("sleep end")
     elif key == 'a':
         flairs.left()
         time.sleep(5)
+	print("sleep end")
     elif key == 'd':
         flairs.right()
         time.sleep(5)
+	print("sleep end")
     elif key == 'j':
         flairs.rotate_ccw()
         time.sleep(5)
+	print("sleep end")
     elif key == 'k':
         flairs.rotate_cw()
         time.sleep(5)
+	print("sleep end")
     elif key == 'p':
         flairs.stop()
     elif key == 'o':
