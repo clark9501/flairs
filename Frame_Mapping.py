@@ -1,4 +1,4 @@
-import numpy as np
+#import numpy as np
 import math
 
 
@@ -29,7 +29,7 @@ def force_decomp(fx,fy,tau,alpha):
     return decomp
 
 
-a = force_decomp(1,1,1,0)
+#a = force_decomp(1,1,1,0)
 
-print(a)
+#print(a)
     
