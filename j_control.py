@@ -1,7 +1,16 @@
 import Adafruit_BBIO.PWM as PWM
 import motorcontroller 
 import math
-import Frame_Mapping  
+import Frame_Mapping
+import gyro
+
+from mpu6050 import mpu6050
+import time
+
+
+# Sensor position
+sensor = mpu6050(0x68)
+
 
 
 rot_coeff = 1 # Define the coefficient that scales the magnitude of the rotaitonal vector
@@ -20,6 +29,14 @@ flairs = motorcontroller.Motor()
 #   def read_joystick()
 #   poll the control signal input, return a translational direction in terms of angle alpha and
 #   and magnitude m, as well as a rotational vector indicator rot.
+
+def read_joystick():
+    alpha = 0
+    m = 1.5
+    rot = 0
+
+
+
 
 #   def read_IMU()
 #   poll the reading of the IMU, return a vector [x,y,beta] describing the coordinate of the robot
@@ -46,11 +63,38 @@ key = 1
 
 #   Target Angle in robot frame
 
-while key != 0:  # this is based on the controller options we have 
+acc_data = sensor.get_accel_data()
+gyro_data = sensor.get_gyro_data()
+pos_data = {}
+pos_data['x'] = acc_data['x']
+pos_data['y'] = acc_data['y']
+pos_data['z'] = gyro_data['z']
+delta_t=0.02
+posin0 = {'x':0, 'y':0, 'z':0}
+posout = pos_int(pos_data,delta_t,posin0)
+        
 
-    alpha,m,rot,key = read_joystick()
-    x,y,beta = read_IMU()
 
+
+while key != 0:  # this is based on the controller options we have
+
+    if key = 1000:
+        key = 0
+    
+    key = key + 0.1
+
+    gyro_data = sensor.get_gyro_data()
+    acc_data = sensor.get_accel_data()
+    pos_data['x'] = acc_data['x']
+    pos_data['y'] = acc_data['y']
+    pos_data['z'] = gyro_data['z']
+    posout = pos_int(pos_data,delta_t,posout)
+    print(posout)
+    
+    beta = posout['z']
+
+    alpha,m,rot = read_joystick()
+    
     gamma = alpha - beta
 
     fx = cos(gamma)*m
@@ -68,8 +112,9 @@ while key != 0:  # this is based on the controller options we have
     PWM3 = force_mapping(f3)
 
     flairs.pwm_set(PWM1,PWM2,PWM3)
+    print(PWM1,PWM2,PWM3)
+    time.sleep(delta_t)
 
-    
     
 PWM.cleanup()
     
