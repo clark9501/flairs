@@ -43,14 +43,14 @@ def Kalman(q,r,p,int_val,measurement):
         _p = (1.0 - _k) * _p
         return _x
 
-acc_data = sensor.get_accel_data()
-delta_t=0.02
-posin0 = {'x':0, 'y':0, 'z':0}
-posout = pos_int(acc_data,delta_t,posin0)
+#acc_data = sensor.get_accel_data()
+#delta_t=0.02
+#posin0 = {'x':0, 'y':0, 'z':0}
+#posout = pos_int(acc_data,delta_t,posin0)
 
-while True:
-        gyro_data = sensor.get_gyro_data()
-        posout = pos_int(gyro_data,delta_t,posout)
-        time.sleep(delta_t)
-        print(posout)
+#while True:
+#        gyro_data = sensor.get_gyro_data()
+#        posout = pos_int(gyro_data,delta_t,posout)
+#        time.sleep(delta_t)
+#        print(posout)
 

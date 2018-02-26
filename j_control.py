@@ -71,14 +71,14 @@ pos_data['y'] = acc_data['y']
 pos_data['z'] = gyro_data['z']
 delta_t=0.02
 posin0 = {'x':0, 'y':0, 'z':0}
-posout = pos_int(pos_data,delta_t,posin0)
+posout = gyro.pos_int(pos_data,delta_t,posin0)
         
 
 
 
 while key != 0:  # this is based on the controller options we have
 
-    if key = 1000:
+    if key == 1000:
         key = 0
     
     key = key + 0.1
@@ -88,21 +88,23 @@ while key != 0:  # this is based on the controller options we have
     pos_data['x'] = acc_data['x']
     pos_data['y'] = acc_data['y']
     pos_data['z'] = gyro_data['z']
-    posout = pos_int(pos_data,delta_t,posout)
+    posout = gyro.pos_int(pos_data,delta_t,posout)
     print(posout)
-    
+    alpha = 0
+    m = 1.5
+    rot = 0
     beta = posout['z']
 
-    alpha,m,rot = read_joystick()
-    
+#    alpha,m,rot = read_joystick()
+	    
     gamma = alpha - beta
 
-    fx = cos(gamma)*m
-    fy = sin(gamma)*m
+    fx = math.cos(gamma)*m
+    fy = math.sin(gamma)*m
     tau = rot_coeff*rot
 
-    decomp = force_decomp(fx,fy,tau,gamma)
-    
+    decomp = Frame_Mapping.force_decomp(fx,fy,tau,gamma)
+    print(decomp)
     f1 = decomp[1][1]
     f2 = decomp[1][2]
     f3 = decomp[1][3]
