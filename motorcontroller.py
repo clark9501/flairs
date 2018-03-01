@@ -8,7 +8,7 @@ R = 0.08 # Length of the Moment Arm, in m
 class Motor:
     # Use P8_13, P9_14, and P9_16 to send the PWM signals
     motor1 = "P8_13"
-    motor2 = "P9_14"
+    motor2 = "P8_19"
     motor3 = "P9_42"
 
     # Please Change the following settings based on ESC setup. (For current version, 9 for stop, 12 for full forward throttle, 6 for full backward throttle)
