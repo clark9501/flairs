@@ -30,6 +30,7 @@ flairs = motorcontroller.Motor()
 stdscr.nodelay(True)
 c = stdscr.getch()
 debounce = True
+
 while c != ord('h'):
     c = stdscr.getch()
     if c == ord('w'):
@@ -38,34 +39,19 @@ while c != ord('h'):
     elif c == ord('a'):
 	print('a')
 	flairs.left()
-    elif c == ord('d'):
+    elif c == ord('d')
 	print('d')
 	flairs.right()
     elif c == ord('x'):
 	print('x')
 	flairs.backward()
-    elif c == ord('q'):
-	print('q')
-#	flairs.diag1()
+    elif c == ord(q'):
+	flairs.rotate_ccw()
     elif c == ord('e'):
-	print('e')
-#	flairs.diag2()
-    elif c == ord('z'):
-	print('z')
-# 	flairs.diag3()
-    elif c == ord('c'):
-	print('c')
-#	flairs.diag4()
-    elif c == ord('j'):
-	print('j')
-	flairs.rotate_ccw
-    elif c == ord('k'):
-	print('k')
-	flairs.rotate_cw
-    else:
-	print('no ip')
-	flairs.stop
-    time.sleep(.033)
+	flairs.rotate_cw()
+    elif c == ord('g'):
+ 	flairs.stop()
+    time.sleep(0.01)
 #wrapper(main)
 
 PWM.cleanup()
