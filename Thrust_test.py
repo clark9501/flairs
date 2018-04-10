@@ -4,14 +4,14 @@ myPWM1="P8_13"
 myPWM2="P9_14"
 myPWM3="P9_42"
 
-PWM.start(myPWM1, 10, 60)
-PWM.start(myPWM2, 10, 60)
-PWM.start(myPWM3, 10, 60)
-DC=10;
-start = 10
+PWM.start(myPWM1, 11, 60)
+PWM.start(myPWM2, 11, 60)
+PWM.start(myPWM3, 11, 60)
+DC=11;
+start = 11
 DC=input("What Duty Cycle Would You Like (0-100)? ")
 
-while DC <15.1 and start==10:
+while DC <15.1 and start==11:
     DC=input("What Duty Cycle Would You Like (0-100)? ")
     
     print(str(DC))

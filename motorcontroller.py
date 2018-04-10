@@ -46,65 +46,128 @@ class Motor:
     
     # Solely used for test purpose.
 
-    def right(self):
+    def right(self,pwm1,pwm2,pwm3):
         #print ('go right')
-        PWM.set_duty_cycle(Motor.motor1,9.7)
-        PWM.set_duty_cycle(Motor.motor2,12.3)
-        PWM.set_duty_cycle(Motor.motor3,12.7)
+	if pwm1 >= 9.8:
+		pwm1 = pwm1-0.1
+	if pwm2 <= 12.2:
+		pwm2 = pwm2+0.1
+	if pwm3 <= 12.4:
+		pwm3 = pwm3+0.1
 
-    def forward(self):
+        PWM.set_duty_cycle(Motor.motor1,pwm1)
+        PWM.set_duty_cycle(Motor.motor2,pwm2)
+        PWM.set_duty_cycle(Motor.motor3,pwm3)
+
+    def forward(self,pwm1,pwm2):
         #print ('go forward')
-        PWM.set_duty_cycle(Motor.motor1,12.6)
-        PWM.set_duty_cycle(Motor.motor2,12.6)
+	if pwm1 <= 12.6:
+		pwm1 = pwm1+0.1
+	if pwm2 <= 12.6:
+		pwm2 = pwm2+0.1
+        PWM.set_duty_cycle(Motor.motor1,pwm1)
+        PWM.set_duty_cycle(Motor.motor2,pwm2)
         PWM.set_duty_cycle(Motor.motor3,11)
 
-    def backward(self):
+    def backward(self,pwm1,pwm2):
         #print ('go backward')
-        PWM.set_duty_cycle(Motor.motor1,9.4)
-        PWM.set_duty_cycle(Motor.motor2,9.4)
+	if pwm1 >= 9.6:
+		pwm1 = pwm1-0.1
+	if pwm2 >= 9.6:
+		pwm2 = pwm2-0.1
+
+        PWM.set_duty_cycle(Motor.motor1,pwm1)
+        PWM.set_duty_cycle(Motor.motor2,pwm2)
         PWM.set_duty_cycle(Motor.motor3,11)
 
-    def left(self):
+    def left(self,pwm1,pwm2,pwm3):
         #print ('go left')
-        PWM.set_duty_cycle(Motor.motor1,12.6)
-        PWM.set_duty_cycle(Motor.motor2,12.2)
-        PWM.set_duty_cycle(Motor.motor3,9.3)
+	if pwm1 <= 12.2:
+		pwm1 = pwm1+0.1
+	if pwm2 >= 9.8:
+		pwm2 = pwm2-0.1
+	if pwm3 >= 9.6:
+		pwm3 = pwm3-0.1
+        PWM.set_duty_cycle(Motor.motor1,pwm1)
+        PWM.set_duty_cycle(Motor.motor2,pwm2)
+        PWM.set_duty_cycle(Motor.motor3,pwm3)
 
-    def rotate_ccw(self):
+    def rotate_ccw(self,pwm1,pwm2,pwm3):
         #print ('rotate ccw')
-        PWM.set_duty_cycle(Motor.motor1,12.8)
-        PWM.set_duty_cycle(Motor.motor2,9.2)
-        PWM.set_duty_cycle(Motor.motor3,12.8)
+	if pwm1 <= 12.4:
+		pwm1 = pwm1+0.1
+	if pwm2 >= 9.6:
+		pwm2 = pwm2-0.1
+	if pwm3 <= 12.0:
+		pwm3 = pwm3+0.1
 
-    def rotate_cw(self):
+        PWM.set_duty_cycle(Motor.motor1,pwm1)
+        PWM.set_duty_cycle(Motor.motor2,pwm2)
+        PWM.set_duty_cycle(Motor.motor3,pwm3)
+
+    def rotate_cw(self,pwm1,pwm2,pwm3):
         #print ('rotate cw')
-        PWM.set_duty_cycle(Motor.motor1,9.2)
-        PWM.set_duty_cycle(Motor.motor2,12.8)
-        PWM.set_duty_cycle(Motor.motor3,9.2)
+	if pwm1 >= 9.2:
+		pwm1 = pwm1-0.1
+	if pwm2 <= 12.8:
+		pwm2 = pwm2+0.1
+	if pwm3 >= 9.4:
+		pwm3 = pwm3-0.1
 
-    def diag1(self):
-        #print ('go right')
-        PWM.set_duty_cycle(Motor.motor1,12.2)
-        PWM.set_duty_cycle(Motor.motor2,12.6)
-        PWM.set_duty_cycle(Motor.motor3,12.5)
+        PWM.set_duty_cycle(Motor.motor1,pwm1)
+        PWM.set_duty_cycle(Motor.motor2,pwm2)
+        PWM.set_duty_cycle(Motor.motor3,pwm3)
 
-    def diag2(self):
+    def diag1(self,pwm1,pwm2,pwm3):
         #print ('go right')
-        PWM.set_duty_cycle(Motor.motor1,12.6)
-        PWM.set_duty_cycle(Motor.motor2,12.2)
-        PWM.set_duty_cycle(Motor.motor3,9.3)
+	if pwm1 <= 12.1:
+		pwm1 = pwm1+0.1
+	if pwm2 <= 12.4:
+		pwm2 = pwm2+0.1
+	if pwm3 <= 12.3:
+		pwm3 = pwm3+0.1
 
-    def diag3(self):
-        #print ('go right')
-        PWM.set_duty_cycle(Motor.motor1,9.8)
-        PWM.set_duty_cycle(Motor.motor2,9.4)
-        PWM.set_duty_cycle(Motor.motor3,9.5)
+        PWM.set_duty_cycle(Motor.motor1,pwm1)
+        PWM.set_duty_cycle(Motor.motor2,pwm2)
+        PWM.set_duty_cycle(Motor.motor3,pwm3)
 
-    def diag4(self):
+    def diag2(self,pwm1,pwm2,pwm3):
         #print ('go right')
-        PWM.set_duty_cycle(Motor.motor1,9.4)
-        PWM.set_duty_cycle(Motor.motor2,9.8)
-        PWM.set_duty_cycle(Motor.motor3,12.5)
+	if pwm1 <= 12.4:
+		pwm1 = pwm1+0.1
+	if pwm2 <= 12.2:
+		pwm2 = pwm2+0.1
+	if pwm3 >= 9.7:
+		pwm3 = pwm3-0.1
+
+        PWM.set_duty_cycle(Motor.motor1,pwm1)
+        PWM.set_duty_cycle(Motor.motor2,pwm2)
+        PWM.set_duty_cycle(Motor.motor3,pwm3)
+
+    def diag3(self,pwm1,pwm2,pwm3):
+        #print ('go right')
+	if pwm1 >= 9.9:
+		pwm1 = pwm1-0.1
+	if pwm2 >= 9.6:
+		pwm2 = pwm2-0.1
+	if pwm3 >= 9.7:
+		pwm3 = pwm3-0.1
+
+        PWM.set_duty_cycle(Motor.motor1,pwm1)
+        PWM.set_duty_cycle(Motor.motor2,pwm2)
+        PWM.set_duty_cycle(Motor.motor3,pwm3)
+
+    def diag4(self,pwm1,pwm2,pwm3):
+        #print ('go right')
+	if pwm1 >= 9.6:
+		pwm1 = pwm1-0.1
+	if pwm2 >= 9.9:
+		pwm2 = pwm2-0.1
+	if pwm3 <= 12.3:
+		pwm3 = pwm3+0.1
+        PWM.set_duty_cycle(Motor.motor1,pwm1)
+        PWM.set_duty_cycle(Motor.motor2,pwm2)
+        PWM.set_duty_cycle(Motor.motor3,pwm3)
 
     def motor1_test(self):
         PWM.set_duty_cycle("P8_13",12)
