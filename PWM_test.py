@@ -9,9 +9,9 @@ curses.cbreak()
 stdscr.keypad(True)
 curses.noecho()
 PWM.cleanup()
-PWM.start("P8_13",9,60,0)
-PWM.start("P9_14",9,60,0)
-PWM.start("P9_42",9,60,0)
+PWM.start("P8_13",11,60,0)
+PWM.start("P9_14",11,60,0)
+PWM.start("P9_42",11,60,0)
 tstart = time.time()
 
 #def main(stdscr):
@@ -46,25 +46,34 @@ while c != ord('h'):
 	flairs.backward()
     elif c == ord('q'):
 	print('q')
-#	flairs.diag1()
+	flairs.diag1()
     elif c == ord('e'):
 	print('e')
-#	flairs.diag2()
+	flairs.diag2()
     elif c == ord('z'):
 	print('z')
-# 	flairs.diag3()
+ 	flairs.diag3()
     elif c == ord('c'):
 	print('c')
-#	flairs.diag4()
+	flairs.diag4()
     elif c == ord('j'):
 	print('j')
 	flairs.rotate_ccw
     elif c == ord('k'):
 	print('k')
 	flairs.rotate_cw
+    elif c == ord('i'):
+	print('i')
+	flairs.motor1_test()
+    elif c == ord('o'):
+	print('o')
+	flairs.motor2_test()
+    elif c == ord('p'):
+	print('p')
+	flairs.motor3_test()
     else:
 	print('no ip')
-	flairs.stop
+	flairs.stop()
     time.sleep(.033)
 #wrapper(main)
 

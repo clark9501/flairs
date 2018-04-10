@@ -12,7 +12,7 @@ class Motor:
     motor3 = "P9_42"
 
     # Please Change the following settings based on ESC setup. (For current version, 9 for stop, 12 for full forward throttle, 6 for full backward throttle)
-    duty_stop = 9
+    duty_stop = 11
     duty_full_forward = 10.5
     duty_full_backward = 7.5
 
@@ -48,40 +48,70 @@ class Motor:
 
     def right(self):
         #print ('go right')
-        PWM.set_duty_cycle(Motor.motor1,8.4)
-        PWM.set_duty_cycle(Motor.motor2,9.6)
-        PWM.set_duty_cycle(Motor.motor3,9.8)
+        PWM.set_duty_cycle(Motor.motor1,9.7)
+        PWM.set_duty_cycle(Motor.motor2,12.3)
+        PWM.set_duty_cycle(Motor.motor3,12.7)
 
     def forward(self):
         #print ('go forward')
-        PWM.set_duty_cycle(Motor.motor1,9.7)
-        PWM.set_duty_cycle(Motor.motor2,9.7)
-        PWM.set_duty_cycle(Motor.motor3,9)
+        PWM.set_duty_cycle(Motor.motor1,12.6)
+        PWM.set_duty_cycle(Motor.motor2,12.6)
+        PWM.set_duty_cycle(Motor.motor3,11)
 
     def backward(self):
         #print ('go backward')
-        PWM.set_duty_cycle(Motor.motor1,8.3)
-        PWM.set_duty_cycle(Motor.motor2,8.3)
-        PWM.set_duty_cycle(Motor.motor3,9)
+        PWM.set_duty_cycle(Motor.motor1,9.4)
+        PWM.set_duty_cycle(Motor.motor2,9.4)
+        PWM.set_duty_cycle(Motor.motor3,11)
 
     def left(self):
         #print ('go left')
-        PWM.set_duty_cycle(Motor.motor1,9.6)
-        PWM.set_duty_cycle(Motor.motor2,8.4)
-        PWM.set_duty_cycle(Motor.motor3,8.2)
+        PWM.set_duty_cycle(Motor.motor1,12.6)
+        PWM.set_duty_cycle(Motor.motor2,12.2)
+        PWM.set_duty_cycle(Motor.motor3,9.3)
 
     def rotate_ccw(self):
         #print ('rotate ccw')
-        PWM.set_duty_cycle(Motor.motor1,9.7)
-        PWM.set_duty_cycle(Motor.motor2,8.3)
-        PWM.set_duty_cycle(Motor.motor3,9.7)
+        PWM.set_duty_cycle(Motor.motor1,12.8)
+        PWM.set_duty_cycle(Motor.motor2,9.2)
+        PWM.set_duty_cycle(Motor.motor3,12.8)
 
     def rotate_cw(self):
         #print ('rotate cw')
-        PWM.set_duty_cycle(Motor.motor1,8.3)
-        PWM.set_duty_cycle(Motor.motor2,9.7)
-        PWM.set_duty_cycle(Motor.motor3,8.3)
+        PWM.set_duty_cycle(Motor.motor1,9.2)
+        PWM.set_duty_cycle(Motor.motor2,12.8)
+        PWM.set_duty_cycle(Motor.motor3,9.2)
 
+    def diag1(self):
+        #print ('go right')
+        PWM.set_duty_cycle(Motor.motor1,12.2)
+        PWM.set_duty_cycle(Motor.motor2,12.6)
+        PWM.set_duty_cycle(Motor.motor3,12.5)
+
+    def diag2(self):
+        #print ('go right')
+        PWM.set_duty_cycle(Motor.motor1,12.6)
+        PWM.set_duty_cycle(Motor.motor2,12.2)
+        PWM.set_duty_cycle(Motor.motor3,9.3)
+
+    def diag3(self):
+        #print ('go right')
+        PWM.set_duty_cycle(Motor.motor1,9.8)
+        PWM.set_duty_cycle(Motor.motor2,9.4)
+        PWM.set_duty_cycle(Motor.motor3,9.5)
+
+    def diag4(self):
+        #print ('go right')
+        PWM.set_duty_cycle(Motor.motor1,9.4)
+        PWM.set_duty_cycle(Motor.motor2,9.8)
+        PWM.set_duty_cycle(Motor.motor3,12.5)
+
+    def motor1_test(self):
+        PWM.set_duty_cycle("P8_13",12)
+    def motor2_test(self):
+        PWM.set_duty_cycle("P9_14",12)
+    def motor3_test(self):
+        PWM.set_duty_cycle("P9_42",12)
     def pwm_set(self,pwm1,pwm2,pwm3):
         #print ('rotate cw')
         PWM.set_duty_cycle(Motor.motor1,pwm1)
@@ -91,7 +121,7 @@ class Motor:
 
 ##    
 ##   
-flairs = Motor()
+#flairs = Motor()
 ##
 ##
 ### The motor controller test
