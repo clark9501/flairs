@@ -10,4 +10,4 @@ while(1):
 	distance = voltage/0.002441 # distance in cm in air
 	distance /= 2.54 # distance in inches in air
 	print "Distance: ",distance," in"
-	sleep(0.1)
+	sleep(0.025)
